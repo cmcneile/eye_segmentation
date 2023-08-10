@@ -49,7 +49,10 @@ the MRI scans using machine learning.
 We followed the example scripts written by
 Mokhtari Mohammed El Amine that used segmentation to extract
 livers from MRI scans. The python code was available
-on github \url{https://github.com/amine0110/Liver-Segmentation-Using-Monai-and-PyTorch}.
+on github
+\url{https://github.com/amine0110/Liver-Segmentation-Using-Monai-and-PyTorch}. There
+is long YouTube video about the application
+\url{https://www.youtube.com/watch?v=AU4KlXKKnac}.
 
 The example python script was built on the following libraries:
 
@@ -61,6 +64,16 @@ The example python script was built on the following libraries:
   is an open source machine learning library  (\url{https://pytorch.org/}.)
     
 \end{description}
+
+The underlying deep network for segmentation was
+U-net~\cite{ronneberger2015u}. 
+This uses many layers of Convolutional neural networks.
+It is a standard network architecture for many segmentation.
+and was designed to be used with a small number of labelled images.
+
+There are a variety of ways to compare the reconstructed
+images (see the review~\cite{taha2015metrics} ).
+The metric used is the Dice one~\cite{zijdenbos1994morphometric}.
 
 \section{Conclusion}
 

@@ -1,0 +1,151 @@
+%% 
+%%  http://wso.williams.edu/wiki/index.php/LaTeX_Problem_Set_Template
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%This is a science homework template. Modify the preamble to suit
+%%%your needs. 
+%The junk text is   there for you to immediately see how the
+%headers/footers look at first 
+%typesetting.
+
+
+\documentclass[12pt]{article}
+
+%AMS-TeX packages
+\usepackage{amssymb,amsmath,amsthm} 
+%geometry (sets margin) and other useful packages
+\usepackage[margin=1.25in]{geometry}
+\usepackage{graphicx,ctable,booktabs}
+\usepackage{url}
+\usepackage{slashed}
+
+%    
+\begin{document}
+
+\title{Segmentation of eye from MRI scans of heads}
+%%\author{Craig McNeile}
+\date{}
+
+\maketitle
+
+
+\section{Introduction}
+
+%%  https://slicer.readthedocs.io/en/latest/user_guide/modules/segmentations.html
+The eyes and lenses were segmentated from the MRI scans
+using the 3D slicer software~\cite{kikinis20133d}.
+The segmentation editor module~\cite{pinter2019polymorph}
+in 3D slicer was used to manually
+extract the eye and lenses.
+The
+files were then written to disk in STL format.
+
+The stl files of the eyes are read into the python library,
+and then converted into a point cloud.
+
+
+
+\section{Fit models to the eye and lenses}
+
+Navarro~\cite{navarro2009optical} reviews the different ways to
+parameterise the retina and cornea.
+
+
+\subsection{Ellipsoid fits}
+
+A common function~\cite{van2021mri}
+to parameter retina and lenses is the ellipsoid model.
+
+The ellipsoid fit model is
+\begin{equation}
+\frac{(x-x_0)^2}{a^2} 
++
+\frac{(y-y_0)^2}{b^2} 
++
+\frac{(z-z_0)^2}{c^2}
+= 1
+\end{equation}
+%%
+where $x_0$ , $y_0$ , and $z_0$  are the center of the ellipsoid.
+and  $a$, $b$ and $c$ are the length of the semi-axes.
+
+
+Jie et al.~\cite{jia2004biconic} review the different ways to fit an
+ellipsoid to set of points.
+
+Use a non-linear optimizer in python to
+minimze (Mean Square Error)
+\begin{equation}
+\mbox{MSE} = \frac{1}{n} \sum_{i=1}^n (f(x_i,y_i,z_i) - 1)^2
+\end{equation}
+%%
+where $n$ are the number points and
+$f$ is the left hand side of the ellipsoid equation.
+
+
+
+  %%  https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm
+  The minimization algorithm is  quasi-Newton method of Broyden,
+  Fletcher, Goldfarb, and Shanno (BFGS). This uses derivative
+  information of the loss function. The derivative is computed using
+  a library called jax~\cite{bradbury2021jax},
+  which computes the derivative from the python
+  function.
+
+  The errors on the parameters are estimated using the bootstrap
+method~\cite{efron1992bootstrap}.
+
+ \subsection{Biconic surfaces}
+
+
+ The following model is suggested~\cite{burek1993mathematical}
+  is a more general fit model than the ellipsoid.
+ 
+\begin{equation}
+  z^{model}  = \frac{c_x x^2 + c_y y^2}
+  {1 +  \sqrt{ 1 - (1 + Q_x) c_x^2 x^2  - (1 + Q_y) c_y^2 y^2   }   }
+ \end{equation}
+%%
+where $c_x$, $c_y$, $Q_x$ and $Q_y$  are parameters.
+The $c_x$ and  $c_y$ parameters are the curvatures.
+The parameters $Q_x$ and $Q_y$ are the conic constants.
+
+The parameters of the Ellipsoid can be extracted from the 
+\begin{eqnarray}
+  R_x & = & \frac{a^2}{c}   \\
+  R_y & = & \frac{b^2}{c}   \\
+  Q_x & = & \frac{a^2}{c^2} - 1 \\
+  Q_y & = & \frac{b^2}{c^2} - 1 
+\end{eqnarray}
+  
+The parameters are determined by minimizing the mean square error.
+\begin{equation}
+\mbox{MSE} = \frac{1}{n} \sum_{i=1}^n (z^{model}_i - z_i )^2
+\end{equation}
+
+
+A more general model can be introduced
+\begin{equation}
+z^{model} = S(x,y) = b(x,y) + \sum_{k} c_k P_k(x,y) 
+\label{eq:gen}
+\end{equation}
+%%
+where $b(x,y)$ is the starting model and
+$P_k(x,y)$ are polynomials labelled by $k$.
+%%
+In Optics one common sequence of polynomials used are the
+Zernike polynomials~\cite{iskander2001optimal}.
+Zernike polynomials are a sequence of polynomials
+that are orthogonal on the unit disk (see the review~\cite{niu2022zernike}). 
+
+The general model in equation~\ref{eq:gen} was
+applied to fitting the Corneas of 123 subjects.
+
+\section{Conclusion}
+
+\bibliographystyle{h-physrev5}
+\bibliography{eye}
+
+
+\end{document}

@@ -33,16 +33,28 @@
 \section{Introduction}
 
 %%  https://slicer.readthedocs.io/en/latest/user_guide/modules/segmentations.html
-The eyes and lenses were segmentated from the MRI scans
-using the 3D slicer software~\cite{kikinis20133d}.
-The segmentation editor module~\cite{pinter2019polymorph}
-in 3D slicer was used to manually
-extract the eye and lenses.
-The
-files were then written to disk in STL format.
-We want to automate this processs, so that the eyes are extracted from
-the MRI scans using machine learning.
+The eyes and lenses were segmentated from the MRI scans of the heads
+of subjects using the 3D slicer software~\cite{kikinis20133d}.  The
+segmentation editor module~\cite{pinter2019polymorph} in 3D slicer was
+used to manually extract the eye and lenses.  The files were then
+written to disk in STL format.  We want to automate this processs, so
+that the eyes are extracted from the MRI scans using machine learning.
 
+
+\section{New data sets}
+
+New data from the team: much higher resolution hence a much easier
+time segmenting the eyes, but I slight tilt of the head created a
+slight imbalance in the definition of the two eyes.
+
+
+The Oasis Project~\cite{van2021mri} provides MRI scans of the heads of
+older patients to investigate Alzheimer's disease.  The MRI data sets
+can be downloaded from this site \url{https://www.oasis-brains.org/}
+The resolution of the MRI scans were not as the data from the
+dedicated measurements at the University of Plymouth.
+It was possible to extract 3D models of the eyes
+from the MRI scans we looked at.
 
 \section{Automating the segmentation}
 
@@ -70,6 +82,9 @@ U-net~\cite{ronneberger2015u}.
 This uses many layers of Convolutional neural networks.
 It is a standard network architecture for many segmentation.
 and was designed to be used with a small number of labelled images.
+
+
+
 
 There are a variety of ways to compare the reconstructed
 images (see the review~\cite{taha2015metrics} ).

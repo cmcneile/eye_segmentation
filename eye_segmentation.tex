@@ -33,7 +33,7 @@
 \section{Introduction}
 
 %%  https://slicer.readthedocs.io/en/latest/user_guide/modules/segmentations.html
-The eyes and lenses were segmentated from the MRI scans of the heads
+The eyes and lenses were segmented from the MRI scans of the heads
 of subjects using the 3D slicer software~\cite{kikinis20133d}.  The
 segmentation editor module~\cite{pinter2019polymorph} in 3D slicer was
 used to manually extract the eye and lenses.  The files were then
@@ -60,7 +60,7 @@ initial MRI of the head scans with  a manually extracted set of eyes,
 which form the training data set.
 
 
-The trainin of the algorithm starts with creating a DICOM series of
+The training of the algorithm starts with creating a DICOM series of
 the MRI scan of a patient, which is a folder of images, one for each
 slice. Then we create a segmentation of the part of the scan we are
 interested in and we do the same: create a DICOM series. After this
@@ -101,7 +101,7 @@ designed to be used with a small number of labelled images.
 There are a variety of ways to compare the reconstructed images (see
 the review~\cite{taha2015metrics} ).  The metric used in the example
 tutorial was the Dice one~\cite{zijdenbos1994morphometric}.
-For descrete sets $X$ and $Y$ 
+For discrete sets $X$ and $Y$ 
 
 \begin{equation}
 \mbox{DSC} = \frac{X \cup  Y} {\mid X \mid + \mid Y \mid }
@@ -117,7 +117,7 @@ label distribution and x the real label distribution and we have:
 \begin{equation}
 \mbox{CE} = \sum_{i=1}^{n} x_i \log(p_i)
 \end{equation}
-For a n-dimensinal vector $x_i$.
+For a n-dimensional vector $x_i$.
 
 The weighted cross entropy (WCE) is used when we need to make sure
 that the system pays attention to a specific element of class of our
@@ -129,7 +129,7 @@ calculation:
 \end{equation}
 
 An epoch in machine learning means one complete pass of the training
-dataset through the algorithm.
+data set through the algorithm.
 
 
 \subsection{Another option for segmentation}

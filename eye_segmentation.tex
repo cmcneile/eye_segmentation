@@ -23,7 +23,7 @@
 %    
 \begin{document}
 
-\title{Segmentation of eye from MRI scans of heads}
+\title{Segmentation of eye from MRI scans of heads using machine learning}
 %%\author{Craig McNeile}
 \date{}
 
@@ -43,18 +43,30 @@ that the eyes are extracted from the MRI scans using machine learning.
 
 \section{New data sets}
 
-New data from the team: much higher resolution hence a much easier
-time segmenting the eyes, but I slight tilt of the head created a
-slight imbalance in the definition of the two eyes.
+A new data set (taken at BRIC using the 3T MRI scanner), tagged as
+24/1/2023,on the MS teams was investigated. The 3Dslicer software was
+used to manually segmentate the eyes from the MRI scans. The new scans
+had much higher resolution than the scans taken in 2022, so it was
+easier to extract the eyes. There was a slight imbalance in the
+definition of the two eyes, possibly because of a slight tilt of the
+head.
 
 
 The Oasis Project~\cite{van2021mri} provides MRI scans of the heads of
-older patients to investigate Alzheimer's disease.  The MRI data sets
-can be downloaded from this site \url{https://www.oasis-brains.org/}
-The resolution of the MRI scans were not good as the data from the
-dedicated measurements from the 3T MRI scanner at BRIC at the
-University of Plymouth. However, it was possible to extract 3D models of the
-eyes from the MRI scans we looked at.
+older patients to investigate Alzheimer's disease.  One motivation for
+investigating the data from the Oasis Project was that there were data
+from 400 patients, so there was potentially a large data set that
+could be used for Machine Learning.  A 1.5-T Vision MRI scanner was
+used (Siemens, Erlangen, Germany) in the study.  The details are
+T1-weighted magnetic resonance imaging scans of the head with 128
+slices.  The MRI data sets can be downloaded from this site
+\url{https://www.oasis-brains.org/}
+
+
+The resolution of the MRI scans, from the Oasis project, were not good
+as the data from the dedicated measurements from the 3T MRI scanner at
+BRIC at the University of Plymouth. However, it was possible to
+extract 3D models of the eyes from the MRI scans we looked at.
 
 \section{Automating the segmentation of the eyes}
 
@@ -67,8 +79,8 @@ is long YouTube video about the application
 \url{https://www.youtube.com/watch?v=AU4KlXKKnac}.
 
 
-In this video it’s shown how to train a system to compute a
-segmentation using the python libraries from above. The video shows
+In this video it is shown how to train a system to compute a
+segmentation using the python libraries. The video shows
 from start to finish all the steps required for the system to work
 properly. It starts with creating a DICOM series of the MRI scan of a
 patient, which is a folder of images, one for each slice. Then we
@@ -97,9 +109,9 @@ The example python script was built on the following libraries:
 
 The underlying deep network for segmentation was
 U-net~\cite{ronneberger2015u}.  This uses many layers of Convolutional
-neural networks.  U-net is a standard network architecture for many
-segmentation problems and it was designed to be used with a small
-number of labelled images.
+neural networks, but with no dense layers.  U-net is a standard
+network architecture for many segmentation problems and it was
+designed to be used with a small number of labelled images.
 
 
 \subsection{Deep Learning concepts:}

@@ -66,6 +66,24 @@ on github
 is long YouTube video about the application
 \url{https://www.youtube.com/watch?v=AU4KlXKKnac}.
 
+
+In this video it’s shown how to train a system to compute a
+segmentation using the python libraries from above. The video shows
+from start to finish all the steps required for the system to work
+properly. It starts with creating a DICOM series of the MRI scan of a
+patient, which is a folder of images, one for each slice. Then we
+create a segmentation of the part of the scan we are interested in and
+we do the same: create a DICOM series. After this initial process we
+set these folders of images to have a specific number of slices, in
+the video was 65, and then we transform the folder of images into one
+Nifti file, this is because the libraries require such type of
+file. This is for the training part, we also have to the same for the
+testing part, which makes sure that the training was done correctly.
+In trying to compute this code I have used Google Colab~\cite{bisong2019google}
+and thanks to
+the GPU built in setting I managed to run the code without problem.
+
+
 The example python script was built on the following libraries:
 
 \begin{description}
@@ -84,13 +102,51 @@ segmentation problems and it was designed to be used with a small
 number of labelled images.
 
 
+\subsection{Deep Learning concepts:}
+
+There are a variety of ways to compare the reconstructed images (see
+the review~\cite{taha2015metrics} ).  The metric used in the example
+tutorial was the Dice one~\cite{zijdenbos1994morphometric}.
+For descrete sets $X$ and $Y$ 
+
+\begin{equation}
+\mbox{DSC} = \frac{X \cup  Y} {\mid X \mid + \mid Y \mid }
+\end{equation}
+  
+The Weighted Cross Entropy  similarly to the Dice score,
+measures how different two classes are, but instead of being two sets,
+it measures how different two probability distribution are. In our
+case it calculates the difference between the predicted label
+distribution and the real label distribution. Let p be the predicted
+label distribution and x the real label distribution and we have:
+
+\begin{equation}
+\mbox{CE} = \sum_{i=1}^{n} x_i \log(p_i)
+\end{equation}
+For a n-dimensinal vector $x_i$.
+
+The weighted cross entropy (WCE) is used when we need to make sure
+that the system pays attention to a specific element of class of our
+data for example. To do so we add a vector of “weights” to our
+calculation:
+
+\begin{equation}
+\mbox{WCE} = \sum_{i=1}^{n} W_i x_i \log(p_i)
+\end{equation}
+
+An epoch in machine learning means one complete pass of the training
+dataset through the algorithm.
 
 
-There are a variety of ways to compare the reconstructed
-images (see the review~\cite{taha2015metrics} ).
-The metric used is the Dice one~\cite{zijdenbos1994morphometric}.
+\subsection{Another option for segmentation}
 
-\subsection{}
+Another possibility that requires a NVIDIA GPU is the assisted
+AI-segmentation extension in 3D Slicer:
+\url{https://github.com/NVIDIA/ai-assisted-annotation-client/tree/master/slicer-plugin}
+.
+This extension has an automated segmentation functions, but it
+requires access to the NVIDIA servers, so for ethic reasons and lack
+of a GPU I did not continue down that route.
 
 \section{Conclusion}
 

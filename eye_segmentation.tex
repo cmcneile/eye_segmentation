@@ -37,36 +37,9 @@ The eyes and lenses were segmentated from the MRI scans of the heads
 of subjects using the 3D slicer software~\cite{kikinis20133d}.  The
 segmentation editor module~\cite{pinter2019polymorph} in 3D slicer was
 used to manually extract the eye and lenses.  The files were then
-written to disk in STL format.  We want to automate this processs, so
-that the eyes are extracted from the MRI scans using machine learning.
-
-
-\section{New data sets}
-
-A new data set (taken at BRIC using the 3T MRI scanner), tagged as
-24/1/2023,on the MS teams was investigated. The 3Dslicer software was
-used to manually segmentate the eyes from the MRI scans. The new scans
-had much higher resolution than the scans taken in 2022, so it was
-easier to extract the eyes. There was a slight imbalance in the
-definition of the two eyes, possibly because of a slight tilt of the
-head.
-
-
-The Oasis Project~\cite{van2021mri} provides MRI scans of the heads of
-older patients to investigate Alzheimer's disease.  One motivation for
-investigating the data from the Oasis Project was that there were data
-from 400 patients, so there was potentially a large data set that
-could be used for Machine Learning.  A 1.5-T Vision MRI scanner was
-used (Siemens, Erlangen, Germany) in the study.  The details are
-T1-weighted magnetic resonance imaging scans of the head with 128
-slices.  The MRI data sets can be downloaded from this site
-\url{https://www.oasis-brains.org/}
-
-
-The resolution of the MRI scans, from the Oasis project, were not good
-as the data from the dedicated measurements from the 3T MRI scanner at
-BRIC at the University of Plymouth. However, it was possible to
-extract 3D models of the eyes from the MRI scans we looked at.
+written to disk in STL format. The aim of this project to automate the
+segmentation, so that the eyes are extracted from the MRI scans
+of the head using machine learning.
 
 \section{Automating the segmentation of the eyes}
 
@@ -79,21 +52,30 @@ is long YouTube video about the application
 \url{https://www.youtube.com/watch?v=AU4KlXKKnac}.
 
 
-In this video it is shown how to train a system to compute a
+In the video it is shown how to train a system to compute a
 segmentation using the python libraries. The video shows
 from start to finish all the steps required for the system to work
-properly. It starts with creating a DICOM series of the MRI scan of a
-patient, which is a folder of images, one for each slice. Then we
-create a segmentation of the part of the scan we are interested in and
-we do the same: create a DICOM series. After this initial process we
-set these folders of images to have a specific number of slices, in
-the video was 65, and then we transform the folder of images into one
-Nifti file, this is because the libraries require such type of
-file. This is for the training part, we also have to the same for the
-testing part, which makes sure that the training was done correctly.
-In trying to compute this code I have used Google Colab~\cite{bisong2019google}
-and thanks to
-the GPU built in setting I managed to run the code without problem.
+properly. The problem is supervised learning. This requires that
+initial MRI of the head scans with  a manually extracted set of eyes,
+which form the training data set.
+
+
+The trainin of the algorithm starts with creating a DICOM series of
+the MRI scan of a patient, which is a folder of images, one for each
+slice. Then we create a segmentation of the part of the scan we are
+interested in and we do the same: create a DICOM series. After this
+initial process we set these folders of images to have a specific
+number of slices, in the video was 65, and then we transform the
+folder of images into one Nifti file~\cite{li2016first},
+this is because the libraries
+require such type of file. This is for the training part, we also have
+to the same for the testing part, which makes sure that the training
+was done correctly.
+
+Google Colab~\cite{bisong2019google} was used to run the algorithm
+to train the algorithm to segmentate the image. Google collab
+has support for running using a GPU. The code ran to completion,
+but the metric to judge the accuracy did not change.
 
 
 The example python script was built on the following libraries:
@@ -159,6 +141,36 @@ AI-segmentation extension in 3D Slicer:
 This extension has an automated segmentation functions, but it
 requires access to the NVIDIA servers, so for ethic reasons and lack
 of a GPU I did not continue down that route.
+
+
+\section{New data sets}
+
+A new data set (taken at BRIC using the 3T MRI scanner), tagged as
+24/1/2023,on the MS teams was investigated. The 3Dslicer software was
+used to manually segmentate the eyes from the MRI scans. The new scans
+had much higher resolution than the scans taken in 2022, so it was
+easier to extract the eyes. There was a slight imbalance in the
+definition of the two eyes, possibly because of a slight tilt of the
+head.
+
+
+The Oasis Project~\cite{van2021mri} provides MRI scans of the heads of
+older patients to investigate Alzheimer's disease.  One motivation for
+investigating the data from the Oasis Project was that there were data
+from 400 patients, so there was potentially a large data set that
+could be used for Machine Learning.  A 1.5-T Vision MRI scanner was
+used (Siemens, Erlangen, Germany) in the study.  The details are
+T1-weighted magnetic resonance imaging scans of the head with 128
+slices.  The MRI data sets can be downloaded from this site
+\url{https://www.oasis-brains.org/}
+
+
+The resolution of the MRI scans, from the Oasis project, were not good
+as the data from the dedicated measurements from the 3T MRI scanner at
+BRIC at the University of Plymouth. However, it was possible to
+extract 3D models of the eyes from the MRI scans we looked at.
+
+
 
 \section{Conclusion}
 

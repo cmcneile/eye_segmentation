@@ -51,12 +51,12 @@ slight imbalance in the definition of the two eyes.
 The Oasis Project~\cite{van2021mri} provides MRI scans of the heads of
 older patients to investigate Alzheimer's disease.  The MRI data sets
 can be downloaded from this site \url{https://www.oasis-brains.org/}
-The resolution of the MRI scans were not as the data from the
-dedicated measurements at the University of Plymouth.
-It was possible to extract 3D models of the eyes
-from the MRI scans we looked at.
+The resolution of the MRI scans were not good as the data from the
+dedicated measurements from the 3T MRI scanner at BRIC at the
+University of Plymouth. However, it was possible to extract 3D models of the
+eyes from the MRI scans we looked at.
 
-\section{Automating the segmentation}
+\section{Automating the segmentation of the eyes}
 
 We followed the example scripts written by
 Mokhtari Mohammed El Amine that used segmentation to extract
@@ -78,10 +78,10 @@ The example python script was built on the following libraries:
 \end{description}
 
 The underlying deep network for segmentation was
-U-net~\cite{ronneberger2015u}. 
-This uses many layers of Convolutional neural networks.
-It is a standard network architecture for many segmentation.
-and was designed to be used with a small number of labelled images.
+U-net~\cite{ronneberger2015u}.  This uses many layers of Convolutional
+neural networks.  U-net is a standard network architecture for many
+segmentation problems and it was designed to be used with a small
+number of labelled images.
 
 
 
@@ -89,6 +89,8 @@ and was designed to be used with a small number of labelled images.
 There are a variety of ways to compare the reconstructed
 images (see the review~\cite{taha2015metrics} ).
 The metric used is the Dice one~\cite{zijdenbos1994morphometric}.
+
+\subsection{}
 
 \section{Conclusion}
 

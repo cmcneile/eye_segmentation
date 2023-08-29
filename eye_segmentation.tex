@@ -27,10 +27,17 @@
 %%\author{Craig McNeile}
 \date{}
 
+
+
 \maketitle
 
 
 \section{Introduction}
+
+This report is an overview of the progress made on using machine
+  learning to extract eyes from MRI scans.
+  This was work done by Pier Peroni as part of a summer undergraduate
+  internship.
 
 %%  https://slicer.readthedocs.io/en/latest/user_guide/modules/segmentations.html
 The eyes and lenses were segmented from the MRI scans of the heads
@@ -139,7 +146,7 @@ AI-segmentation extension in 3D Slicer:
 \url{https://github.com/NVIDIA/ai-assisted-annotation-client/tree/master/slicer-plugin}
 .
 This extension has an automated segmentation functions, but it
-requires access to the NVIDIA servers, so for ethic reasons and lack
+requires access to the NVIDIA servers, so for ethical reasons and lack
 of a GPU I did not continue down that route.
 
 
@@ -177,6 +184,30 @@ definition of the two eyes, possibly because of a slight tilt of the
 head. The extracted eyes are in figure~\ref{fg:eyeHigh} and the lenses
 in figure~\ref{fg:HDlenses}.
 
+\begin{figure}
+\centering
+\includegraphics[%
+  scale=0.3, 
+  angle=0,keepaspectratio=true,
+  origin=c,clip]{./figures/Oasis_patient_3.png} 
+\caption{Eyes from the new MRI scans from a patient from the Oasis Project}
+\label{fg:eyeOasis}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[%
+  scale=0.3, 
+  angle=0,keepaspectratio=true,
+  origin=c,clip]{./figures/Oasis_patient_3_lenses.png} 
+\caption{Lenses from the MRI scans from a patient from the Oasis Project}
+\label{fg:lenOasis}
+\end{figure}
+
+
+
 
 The Oasis Project~\cite{van2021mri} provides MRI scans of the heads of
 older patients to investigate Alzheimer's disease.  One motivation for
@@ -193,8 +224,8 @@ The resolution of the MRI scans, from the Oasis project, were not good
 as the data from the dedicated measurements from the 3T MRI scanner at
 BRIC at the University of Plymouth. However, it was possible to
 extract 3D models of the eyes from the MRI scans we looked at.
-
-
+The eyes extracted from one patient is in figure~\ref{fg:eyeOasis}.
+The lenses from one patient is in figure~\ref{fg:lenOasis}.
 
 \section{Conclusion}
 
